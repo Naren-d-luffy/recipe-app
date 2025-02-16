@@ -3,19 +3,9 @@ import axios from "axios";
 
 export const fetchRecipes = createAsyncThunk(
   "recipes/fetchRecipes",
-  async () => {
-    const options = {
-      method: "GET",
-      url: "https://tasty.p.rapidapi.com/recipes/list",
-      params: { from: "0", size: "20", tags: "under_30_minutes" },
-      headers: {
-        "x-rapidapi-key": "YOUR_API_KEY",
-        "x-rapidapi-host": "tasty.p.rapidapi.com",
-      },
-    };
-
-    const response = await axios.request(options);
-    return response.data.results;
+  async (page = 1) => {
+    const response = await axios.get(`http://localhost:5000/api/recipes/?page=${page}&limit=10`);
+    return response.data;
   }
 );
 
@@ -25,6 +15,8 @@ const recipeSlice = createSlice({
     items: [],
     status: "idle",
     error: null,
+    totalPages: 1,
+    currentPage: 1,
   },
   reducers: {},
   extraReducers: (builder) => {
@@ -34,7 +26,10 @@ const recipeSlice = createSlice({
       })
       .addCase(fetchRecipes.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.items = action.payload;
+        state.totalPages = action.payload.totalPages;
+        state.currentPage = action.payload.currentPage;
+        
+        state.items = action.payload.recipes; // ✅ Always replace, never append
       })
       .addCase(fetchRecipes.rejected, (state, action) => {
         state.status = "failed";

@@ -5,12 +5,12 @@ const favoriteSlice = createSlice({
   initialState: [],
   reducers: {
     addFavorite: (state, action) => {
-      if (!state.some(recipe => recipe.id === action.payload.id)) {
+      if (!state.some(recipe => recipe._id === action.payload._id)) {
         state.push(action.payload);
       }
     },
     removeFavorite: (state, action) => {
-      return state.filter(recipe => recipe.id !== action.payload.id);
+      return state.filter(recipe => recipe._id !== action.payload._id);
     },
   },
 });

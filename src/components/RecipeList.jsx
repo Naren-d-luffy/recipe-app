@@ -1,14 +1,15 @@
 import RecipeCard from "./RecipeCard";
 
-const RecipeList = ({ recipes, onFavorite, favorites }) => {
+const RecipeList = ({ recipes = [], onFavorite, favorites }) => {
+  console.log("Recipes passed to RecipeList:", recipes);
   return (
     <div className="recipe-grid">
-      {recipes.map((recipe) => (
+      {recipes?.map((recipe) => (
         <RecipeCard
-          key={recipe.id}
+          key={recipe._id}
           recipe={recipe}
           onFavorite={onFavorite}
-          isFavorite={favorites.some(fav => fav.id === recipe.id)}
+          isFavorite={favorites?.some((fav) => fav._id === recipe._id)}
         />
       ))}
     </div>

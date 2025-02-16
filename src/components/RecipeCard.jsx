@@ -2,7 +2,7 @@ const RecipeCard = ({ recipe, onFavorite, isFavorite }) => {
   return (
     <div className="recipe-card">
       <div className="recipe-image">
-        <img src={recipe.thumbnail_url} alt={recipe.name} />
+        <img src={recipe.image} alt={recipe.title} />
         <button 
           className={`favorite-btn ${isFavorite ? "active" : ""}`}
           onClick={() => onFavorite(recipe)}
@@ -11,11 +11,8 @@ const RecipeCard = ({ recipe, onFavorite, isFavorite }) => {
         </button>
       </div>
       <div className="recipe-content">
-        <h3>{recipe.name}</h3>
-        <p>{recipe.description || "No description available"}</p>
-        <div className="recipe-meta">
-          <span>{recipe.total_time_minutes || "30"} mins</span>
-        </div>
+        <h3>{recipe.title}</h3>
+        <p>{recipe.instructions || "No description available"}</p>
       </div>
     </div>
   );
