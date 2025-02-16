@@ -4,7 +4,7 @@ import axios from "axios";
 export const fetchRecipes = createAsyncThunk(
   "recipes/fetchRecipes",
   async (page = 1) => {
-    const response = await axios.get(`http://localhost:5000/api/recipes/?page=${page}&limit=10`);
+    const response = await axios.get(`http://13.60.245.129:5000/api/recipes/?page=${page}&limit=10`);
     return response.data;
   }
 );
